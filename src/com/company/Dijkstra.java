@@ -3,13 +3,12 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Dijkstra {
 
-    private Graph graph;
+    private AdjacencyListGraph graph;
 
-    public Dijkstra(Graph graph) {
+    public Dijkstra(AdjacencyListGraph graph) {
         this.graph = graph;
     }
 
@@ -25,8 +24,9 @@ public class Dijkstra {
 
 
 
-        pq.addAll(graph.getVertices());
+//        pq.addAll(graph.getVertices());
         source.setCost(0);
+        pq.add(source);
 
 
         while (!pq.isEmpty()){// v
@@ -35,12 +35,12 @@ public class Dijkstra {
                 break;
             }
 
-            for (Edge edge: current.getAdj()){ // E
+            for (Edge edge: current.getAdj()){
+                // only visiting the adj vertices so the running time of the O(V+E)
                 double cost = current.getCost() + edge.getWeight();
-
                 Vertex edgeDest = edge.getDes();
                 if (!edgeDest.isVisited()){
-                    pq.remove(edgeDest); // log v
+//                    pq.remove(edgeDest); // log v
                     if (cost < edgeDest.getCost()){
                         edgeDest.setCost(cost);
                         edgeDest.setParent(current);
@@ -51,6 +51,9 @@ public class Dijkstra {
             current.setVisited(true);
         }
 
+        // total running time of the algorithm O(V+E)*O(log V)
+        // O((E+V)*log V)
+        // O(E*log V) or O(V*log V)
 
         if (destination.getParent() != null){
             System.out.println("cost to reach destination: " + destination.getCost());

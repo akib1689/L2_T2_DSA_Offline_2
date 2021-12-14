@@ -14,7 +14,8 @@ public class Main {
             int n = Integer.parseInt(input[0]);
             int m = Integer.parseInt(input[1]);
 
-            Graph graph = new Graph(n);
+            AdjacencyListGraph graph = new AdjacencyListGraph(n);
+            EdgeListGraph bellmanGraph = new EdgeListGraph(n);
 
             for (int i = 0; i < m; i++) {
                 line = reader.readLine();
@@ -24,18 +25,21 @@ public class Main {
                 double w = Double.parseDouble(input[2]);
 
                 graph.addEdge(u,v,w);
+                bellmanGraph.addEdge(u,v,w);
             }
-
-            graph.printGraph();
 
             line = reader.readLine();
             input = line.split(" ");
             int src = Integer.parseInt(input[0]);
             int des = Integer.parseInt(input[1]);
 
-            Dijkstra algo = new Dijkstra(graph);
+            /*Dijkstra algo = new Dijkstra(graph);
+            algo.findPath(src,des);*/
 
-            algo.findPath(src,des);
+            BellmanFord bellmanFord = new BellmanFord(bellmanGraph);
+            bellmanFord.startAlgo(src,des);
+
+
 
         }catch (IOException e){
             e.printStackTrace();

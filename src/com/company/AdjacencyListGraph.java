@@ -2,11 +2,11 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Graph {
+public class AdjacencyListGraph {
     private int n;
-    private ArrayList<Vertex> vertices;
+    private final ArrayList<Vertex> vertices;
 
-    public Graph(int n) {
+    public AdjacencyListGraph(int n) {
         this.n = n;
         vertices = new ArrayList<>();
         for (int i=0;i<n;i++){
